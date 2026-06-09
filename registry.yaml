@@ -1,0 +1,110 @@
+# Etymolt Cookbook Registry
+#
+# Each entry is a recipe. The registry drives the cookbook site index and lets
+# LLM crawlers ingest the cookbook in one file.
+#
+# Entry format:
+#   - title: <human-readable title>
+#     path: <relative path to the recipe>
+#     date: <YYYY-MM-DD>
+#     authors: [list of authors]
+#     tags: [list of tags]
+#     description: <one-paragraph summary>
+
+# Anchor recipes for v1 (skeletons; bodies fill in as recipes ship)
+
+- title: "Verify a single name"
+  path: examples/verify-single-name/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [quickstart, verify, single-name]
+  description: |
+    The shortest possible path from a candidate name to a signed EVP/1 verdict.
+    Uses fetch (no SDK). Returns the full verdict object with disclaimer.
+
+- title: "Batch-verify a CSV of candidates"
+  path: examples/batch-csv/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [batch, csv, scale]
+  description: |
+    Take a CSV of candidate names, run each through /v1/verify, output a CSV
+    with one row per name + the verdict, score, and per-axis status. Handles
+    rate limiting and resumes from a checkpoint.
+
+- title: "Wire Etymolt into Namelix output"
+  path: examples/namelix-postcheck/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [namelix, generator, post-check, parasitic]
+  description: |
+    Pattern for wrapping any AI name generator's output with an Etymolt
+    verdict before showing it to the user. Drops the names that fail and
+    surfaces the verdict alongside the survivors. Works against Namelix,
+    Brandsnap, Looka, Squadhelp, ChatGPT-generated lists.
+
+- title: "Build an agent loop that filters generated names"
+  path: examples/agent-loop/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [agent, loop, claude, generation, filtering]
+  description: |
+    A Claude / GPT agent loop that generates candidate names, verifies each
+    one against Etymolt, and returns only the survivors (sorted by score).
+    The pattern most naming agents will adopt.
+
+- title: "Render an EVP/1 verdict in a React app"
+  path: examples/react-render/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [react, frontend, ui, evp-1]
+  description: |
+    The components and conventions for rendering an EVP/1 verdict in a
+    Next.js / React app. Includes the "as of" badge, the staleness banner,
+    the per-axis breakdown, and the Bureau Footer.
+
+- title: "Verify in Claude Desktop via MCP"
+  path: examples/claude-desktop-mcp/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [mcp, claude-desktop, install]
+  description: |
+    Install @etymolt/mcp-server in Claude Desktop's config. Verify names by
+    asking Claude "is the name X taken?" in any conversation.
+
+- title: "Verify in Cursor via MCP"
+  path: examples/cursor-mcp/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [mcp, cursor, install, ide]
+  description: |
+    Install @etymolt/mcp-server in Cursor's MCP config. Verify names while
+    coding without leaving the IDE.
+
+- title: "Verify in Next.js with the official SDK"
+  path: examples/nextjs-app-router/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [nextjs, sdk, app-router, server-component]
+  description: |
+    Server-action pattern for calling Etymolt from a Next.js App Router app.
+    Shows the verdict UI with proper temporal-validity rendering.
+
+- title: "Watch a name over time (continuous monitoring)"
+  path: examples/watch-loop/README.md
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [monitoring, recurring, schedule]
+  description: |
+    Run a verify call on a schedule, diff the verdicts, emit a webhook on
+    any axis-level change. The pattern that powers brand-watch services.
+
+- title: "Interpret confidence and temporal validity"
+  path: notebooks/interpret-confidence.ipynb
+  date: 2026-06-09
+  authors: [etymolt]
+  tags: [calibration, confidence, temporal, methodology]
+  description: |
+    A Jupyter notebook that walks through how to read an EVP/1 verdict's
+    confidence interval, axis_freshness, and verdict_volatility — and how
+    to set thresholds for "act on this" vs "re-verify" vs "ignore".
