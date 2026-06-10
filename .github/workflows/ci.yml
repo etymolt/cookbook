@@ -1,0 +1,36 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Syntax-check recipe .mjs files
+        shell: bash
+        run: |
+          set -e
+          shopt -s nullglob globstar
+          found=0
+          for f in examples/**/*.mjs; do
+            found=1
+            echo "node --check $f"
+            node --check "$f"
+          done
+          if [ "$found" = "0" ]; then echo "no .mjs recipes found"; fi
+      - name: Validate registry.yaml parses
+        shell: bash
+        run: |
+          if [ -f registry.yaml ]; then
+            npm install --no-save --no-audit --no-fund js-yaml >/dev/null 2>&1
+            node -e "const fs=require('fs'),y=require('js-yaml');y.load(fs.readFileSync('registry.yaml','utf8'));console.log('registry.yaml parses ok')"
+          else
+            echo "no registry.yaml"
+          fi
