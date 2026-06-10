@@ -17,7 +17,8 @@ if (!name || !webhook) {
 const stateFile = `.watch-${name}.json`;
 
 while (true) {
-  const r = await fetch("https://api.etymolt.com/v1/verify", {
+  const BASE = process.env.ETYMOLT_BASE_URL || "https://api.etymolt.com";
+  const r = await fetch(`${BASE}/v1/verify`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ name }),

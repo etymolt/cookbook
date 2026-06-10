@@ -8,7 +8,8 @@ if (!name) {
   process.exit(1);
 }
 
-const response = await fetch("https://api.etymolt.com/v1/verify", {
+const BASE = process.env.ETYMOLT_BASE_URL || "https://api.etymolt.com";
+const response = await fetch(`${BASE}/v1/verify`, {
   method: "POST",
   headers: { "content-type": "application/json" },
   body: JSON.stringify({ name }),

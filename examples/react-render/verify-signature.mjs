@@ -9,7 +9,8 @@ import { sign } from "tweetnacl";
 import { decodeBase64 } from "tweetnacl-util";
 import canonicalize from "canonicalize";
 
-export async function verifyVerdict(verdict, jwksUrl = "https://api.etymolt.com/.well-known/evp-keys.json") {
+const BASE = process.env.ETYMOLT_BASE_URL || "https://api.etymolt.com";
+export async function verifyVerdict(verdict, jwksUrl = `${BASE}/.well-known/evp-keys.json`) {
   const { signature, signature_key_id, signature_payload_digest, ...payload } = verdict;
   const canonical = canonicalize(payload);
   const message = new TextEncoder().encode(canonical);
