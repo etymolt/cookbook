@@ -6,11 +6,15 @@
 import { useMemo } from "react";
 
 const HEADLINE = {
+  // 3-value canonical verdict labels (2026-06-10). The engine's
+  // pre-cutover 5-state labels (DUE_DILIGENCE/ITERATE/INSUFFICIENT_SIGNAL)
+  // are preserved on `verdict_legacy` for back-compat; consumers built
+  // before the cutover may read either field.
   PROCEED: { verb: "Yes", tone: "good" },
-  ITERATE: { verb: "Fix these", tone: "warn" },
-  DECIDE: { verb: "Workable", tone: "warn" },
+  PROCEED_STRATEGIC: { verb: "Workable", tone: "warn" },
   ABANDON: { verb: "Don't use", tone: "bad" },
-  INSUFFICIENT_SIGNAL: { verb: "Not enough signal", tone: "muted" },
+  // Status:partial signals engine-uncertain — the verdict is the best
+  // estimate and the consumer should treat it as advisory.
 };
 
 const AXIS_LABEL = {

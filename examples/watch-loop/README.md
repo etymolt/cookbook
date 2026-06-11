@@ -25,7 +25,7 @@ node watch.mjs Inkstack --interval 24h --webhook https://your.app/etymolt-drift
 The watch compares the current `verdict` field to the last seen one. If
 either:
 
-1. The composite verdict label changes (e.g. PROCEED → ITERATE), or
+1. The composite verdict label changes (e.g. PROCEED → ABANDON or PROCEED → PROCEED_STRATEGIC), or
 2. Any per-axis status worsens (CLEAR → CAUTION → BLOCKED),
 
 …the webhook fires with the before/after delta.

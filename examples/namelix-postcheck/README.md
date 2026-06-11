@@ -11,9 +11,9 @@ drop the failures, surface the verdict alongside the survivors.
 ## The pattern
 
 ```
-candidates  →  /v1/verify  →  {PROCEED, ITERATE, DECIDE}  →  show to user
+candidates  →  /v1/verify  →  {PROCEED, PROCEED_STRATEGIC}  →  show to user
                           ↓
-                       ABANDON  →  drop silently
+                       ABANDON  →  drop silently  (also: status=partial → flag for human review)
 ```
 
 ## Run it
@@ -26,10 +26,10 @@ echo '["Inkstack", "Sigil", "Stratagem", "Aiyana"]' | node postcheck.mjs
 Output (one row per name):
 
 ```
-✓ PROCEED   Inkstack    score=82
-✗ ABANDON   Sigil       score=12   trademark=BLOCKED
-~ ITERATE   Stratagem   score=60   trademark=CAUTION
-? INSUFFICIENT_SIGNAL  Aiyana    score=null  cultural=INSUFFICIENT_SIGNAL
+✓ PROCEED              Inkstack    score=82  reason=clean
+✗ ABANDON              Sigil       score=12  reason=famous_mark   trademark=BLOCKED
+~ PROCEED_STRATEGIC    Stratagem   score=60  reason=high_collision  trademark=CAUTION
+? PROCEED_STRATEGIC    Aiyana    score=null status=partial  reason=insufficient_corpus  cultural=INSUFFICIENT_SIGNAL
 ```
 
 ## Files
