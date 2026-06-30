@@ -12,6 +12,14 @@
 | [Render an EVP/1 verdict in React](./examples/react-render/README.md) | Drop-in component. Answer-first. Disclaimer verbatim. |
 | [Watch a name for verdict drift](./examples/watch-loop/README.md) | Re-verify on schedule; webhook on drift. |
 
+## Verify a verdict in your browser
+
+Every recipe in this cookbook returns a signed EVP/1 envelope. Paste any verdict (the full JSON, or just the `signature_b64` + canonical payload) into [`etymolt.com/verify`](https://www.etymolt.com/verify) to see the Ed25519 signature green-check against the live `/.well-known/verdict-keys.json` registry — no SDK, no install. Good for sharing a verdict with a teammate or proving freshness in a screenshot.
+
+## Pricing
+
+Free tier: anon calls rate-limited per IP. Authenticated standard: **$0.25 per verdict**. Volume tiers: $0.15 (1K–5K/mo), $0.10 (5K–20K/mo), $0.05 (20K+/mo). See [`etymolt.com/pricing`](https://www.etymolt.com/pricing) for the live table.
+
 ## Coming soon
 
 - Batch-verify a CSV at scale (rate limiting + checkpoint resume)
